@@ -36,19 +36,29 @@ function DeleteBillDialog({ billId, billName }: DeleteBillDialogProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost">Delete</Button>
+        <Button
+          variant="secondary"
+          className="hover:bg-secondary-foreground/10 transition-colors duration-200"
+        >
+          {" "}
+          <span className="text-destructive">Delete</span>
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your bill
+            and remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
+          <AlertDialogAction
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            onClick={handleDelete}
+            disabled={isDeleting}
+          >
             {isDeleting ? "Deleting..." : `Delete ${billName}`}
           </AlertDialogAction>
         </AlertDialogFooter>

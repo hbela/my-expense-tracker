@@ -32,7 +32,7 @@ import {
 import { cn } from "@/lib/utils";
 import { editBill } from "@/app/actions/billActions";
 import { FormSchema, FormSchemaType } from "@/lib/formSchema";
-
+import { useToast } from "@/hooks/use-toast";
 // ... keep your existing formSchema and FormData type definitions
 
 interface EditBillProps {
@@ -49,6 +49,7 @@ type FormDataEdit = FormSchemaType & { id: number };
 
 export default function EditBill({ bill }: EditBillProps) {
   const [open, setOpen] = useState(false);
+  const { toast } = useToast();
   const form = useForm<FormDataEdit>({
     //type
     resolver: zodResolver(FormSchema), //schema
@@ -73,17 +74,30 @@ export default function EditBill({ bill }: EditBillProps) {
     if (result.success) {
       form.reset();
       setOpen(false);
-      // You might want to show a success message here
+      toast({
+        title: "Success",
+        description: "Bill edited successfully",
+        variant: "default",
+      });
     } else {
-      // Handle error, maybe show an error message
-      console.error(result.error);
+      toast({
+        title: "Error",
+        description: result.error || "Failed to edit bill",
+        variant: "destructive",
+      });
+      console.error("EditBill Error: ", result.error);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary">Edit</Button>
+        <Button
+          variant="secondary"
+          className="hover:bg-secondary-foreground/10 transition-colors duration-200"
+        >
+          <span className="text-primary">Edit</span>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

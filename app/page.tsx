@@ -10,9 +10,7 @@ export default function Home({
     typeof searchParams.page === "string" ? parseInt(searchParams.page) : 1;
 
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Bill Management App</h1>
-
+    <main className="container mx-auto p-4 flex flex-col items-center">
       <Bills page={page} />
     </main>
   );

@@ -34,6 +34,7 @@ import { cn } from "@/lib/utils";
 import { addBill } from "@/app/actions/billActions";
 import { Plus as PlusIcon } from "lucide-react";
 import { FormSchema, FormSchemaType } from "@/lib/formSchema";
+import { useToast } from "@/hooks/use-toast";
 
 interface AddBillProps {
   onAddBill: (bill: FormData) => void;
@@ -41,6 +42,7 @@ interface AddBillProps {
 
 export default function AddBill() {
   const [open, setOpen] = useState(false);
+  const { toast } = useToast();
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -62,9 +64,17 @@ export default function AddBill() {
     if (result.success) {
       form.reset();
       setOpen(false);
-      // You might want to show a success message here
+      toast({
+        title: "Success",
+        description: "Bill added successfully",
+        variant: "default",
+      });
     } else {
-      // Handle error, maybe show an error message
+      toast({
+        title: "Error",
+        description: result.error || "Failed to add bill",
+        variant: "destructive",
+      });
       console.error("AddBill Error: ", result.error);
     }
   };
@@ -73,7 +83,7 @@ export default function AddBill() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="icon">
-          <PlusIcon className="h-4 w-4" />
+          <PlusIcon className="h-4 w-4 text-primary" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

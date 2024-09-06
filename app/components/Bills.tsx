@@ -11,7 +11,15 @@ import prisma from "@/lib/prisma";
 import AddBill from "./AddBill";
 import EditBill from "./EditBill";
 import DeleteBillDialog from "./DeleteBillDialog";
-import { deleteBill } from "@/app/actions/billActions";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 interface BillsProps {
   page?: number;
@@ -26,7 +34,7 @@ interface Bill {
   payee: string;
 }
 
-export default async function Bills({ page = 1, pageSize = 10 }: BillsProps) {
+export default async function Bills({ page = 1, pageSize = 3 }: BillsProps) {
   const skip = (page - 1) * pageSize;
   const bills = await prisma.bill.findMany({
     skip,
@@ -40,7 +48,7 @@ export default async function Bills({ page = 1, pageSize = 10 }: BillsProps) {
   return (
     <div>
       <AddBill />
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-1">
         {bills.map((bill: Bill) => (
           <Card key={bill.id}>
             <CardHeader>
@@ -57,17 +65,42 @@ export default async function Bills({ page = 1, pageSize = 10 }: BillsProps) {
           </Card>
         ))}
       </div>
-      <div className="flex justify-between mt-4">
-        <Button disabled={currentPage <= 1} asChild>
-          <Link href={`/bills?page=${currentPage - 1}`}>Previous</Link>
-        </Button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <Button disabled={currentPage >= totalPages} asChild>
-          <Link href={`/bills?page=${currentPage + 1}`}>Next</Link>
-        </Button>
-      </div>
+      <Pagination className="mt-4">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              href={`/?page=${currentPage - 1}`}
+              aria-disabled={currentPage <= 1}
+              tabIndex={currentPage <= 1 ? -1 : undefined}
+              className={
+                currentPage <= 1 ? "pointer-events-none opacity-50" : undefined
+              }
+            />
+          </PaginationItem>
+
+          {/* Add page numbers here if needed */}
+          <PaginationItem>
+            <PaginationLink href={`/?page=${currentPage}`} isActive>
+              {currentPage}
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext
+              href={`/?page=${currentPage + 1}`}
+              aria-disabled={currentPage >= totalPages}
+              tabIndex={currentPage >= totalPages ? -1 : undefined}
+              className={
+                currentPage >= totalPages
+                  ? "pointer-events-none opacity-50"
+                  : undefined
+              }
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }
