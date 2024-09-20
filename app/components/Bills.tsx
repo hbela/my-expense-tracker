@@ -21,9 +21,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
+//import { useTranslations } from "next-intl";
+//import { unstable_setRequestLocale } from "next-intl/server";
+
 interface BillsProps {
   page?: number;
   pageSize?: number;
+  locale: string;
 }
 
 interface Bill {
@@ -34,7 +38,13 @@ interface Bill {
   payee: string;
 }
 
-export default async function Bills({ page = 1, pageSize = 3 }: BillsProps) {
+export default async function Bills({
+  page = 1,
+  pageSize = 3,
+  locale,
+}: BillsProps) {
+  // unstable_setRequestLocale(locale);
+  // const t = useTranslations();
   const skip = (page - 1) * pageSize;
   const bills = await prisma.bill.findMany({
     skip,
