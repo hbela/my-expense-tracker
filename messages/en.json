@@ -1,0 +1,38 @@
+{
+  "LocaleSwitcher": {
+    "label":"Select Language",
+    "locale": "English"
+  },
+    "NavbarLinks": {
+      "appName": "Bill Management",
+
+      "home": "Home",
+      "homeTitle": "Home page",
+      "about": "About",
+      "aboutTitle": "About page",
+      "profile": "Profile",
+      "profileTitle": "Profile page"
+    },
+    "HomePage": {
+      "title": "Landing page"
+    },
+"All":{
+ 
+  "addBill": "Add Bill",
+  "editBill": "Edit Bill",
+  "deleteBill": "Delete Bill",
+  "billName": "Bill Name",
+  "amount": "Amount",
+  "dueDate": "Due Date",
+  "actions": "Actions",
+  "previous": "Previous",
+  "next": "Next",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "confirmDelete": "Are you sure you want to delete this bill?"
+},
+"LocaleLayout": {
+    "title": "Bill Manager"
+  }
+}

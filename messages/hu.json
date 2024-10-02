@@ -1,0 +1,40 @@
+{
+  "LocaleSwitcher": {
+    "label":"Válassz nyelvet",
+    "locale": "Magyar"
+  },
+  
+    "NavbarLinks": {
+      "appName": "Számlázás",
+
+      "home": "Home",
+      "homeTitle": "Home page",
+      "about": "About",
+      "aboutTitle": "About page",
+      "profile": "Profile",
+      "profileTitle": "Profile page"
+    },
+"All":{
+    "appName": "Számlák",
+    "addBill": "Uj számla",
+    "editBill": "Edit Bill",
+    "deleteBill": "Delete Bill",
+    "billName": "Bill Name",
+    "amount": "Amount",
+    "dueDate": "Due Date",
+    "actions": "Actions",
+    "previous": "Previous",
+    "next": "Next",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "confirmDelete": "Are you sure you want to delete this bill?"
+  },
+  
+  "Metadata": {
+    "title":"Szamlazas"
+    },
+    "LocaleLayout": {
+    "title": "Szamlazas"
+  }
+}
