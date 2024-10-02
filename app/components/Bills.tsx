@@ -21,8 +21,6 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
-
 //import { useTranslations } from "next-intl";
 //import { unstable_setRequestLocale } from "next-intl/server";
 
