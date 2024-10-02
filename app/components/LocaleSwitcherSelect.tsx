@@ -24,14 +24,21 @@ export default function LocaleSwitcherSelect({
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value as string;
     console.log("LocaleSwitcherSelect nextLocale: ", nextLocale);
-    console.log("LocaleSwitcherSelect label: ", label);
-    console.log("LocaleSwitcherSelect children: ", children);
+
+    if (isPending) return; // Prevent multiple transitions during pending state
+
     startTransition(() => {
       if (typeof pathname === "string") {
-        router.replace(
-          `${pathname}?${new URLSearchParams(params).toString()}`, // Construct URL with params
-          { locale: nextLocale }
-        );
+        // Get current query parameters from the URL
+        const currentSearchParams = new URLSearchParams(window.location.search);
+
+        // Update the locale in the query parameters
+        currentSearchParams.set("locale", nextLocale);
+
+        // Replace the router with updated params
+        router.replace(`${pathname}?${currentSearchParams.toString()}`, {
+          locale: nextLocale as "en" | "hu",
+        });
       } else {
         console.error("Invalid pathname:", pathname);
       }
